@@ -1,11 +1,16 @@
-import React from 'react'
+"use client" ; 
 
-const Home = () => {
+import dynamic from "next/dynamic";
+
+// Lazy load the LoadingScreen for performance
+const LoadingScreen = dynamic(() => import("./components/LoadingScreen"), {
+  ssr: false,
+});
+
+export default function Home() {
   return (
     <>
-      <h1 className = "text-4xl font-[900]">This is the Home Page</h1> 
+      <LoadingScreen />
     </>
-  )
+  );
 }
-
-export default Home; 
