@@ -30,3 +30,31 @@
     max-height: 150px !important;
   }
 }
+
+/* Optional: Add smoother transitions for better animation quality */
+.animated-logo-container {
+  will-change: transform;
+}
+
+.animated-logo-container svg path {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .animated-logo-container {
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .animated-logo-container {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .animated-logo-container {
+    max-width: 400px;
+  }
+}

@@ -1,123 +1,11 @@
-'use client';
-
-import React, { useRef } from 'react';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
-
-const AnimatedLogo = ({ className = "" }) => {
-  const logoRef = useRef(null);
-
-  useGSAP(() => {
-    const tl = gsap.timeline();
-
-    // Initial setup - hide tree elements and set up drawing animation
-    gsap.set("#tree-root, #tree-trunk, #Y-branch1, #Y-branch2, #Y-leaf1, #Y-leaf2, #Y-leaf3, #Y-leaf4, #Y-leaf5, #Y-leaf6", {
-      opacity: 0
-    });
-
-    // Set up stroke-dasharray and stroke-dashoffset for drawing animation
-    const drawableElements = [
-      "#tree-root path",
-      "#tree-trunk path", 
-      "#Y-branch1 path",
-      "#Y-branch2"
-    ];
-
-    drawableElements.forEach(selector => {
-      const element = document.querySelector(selector);
-      if (element) {
-        const length = element.getTotalLength();
-        gsap.set(element, {
-          strokeDasharray: length,
-          strokeDashoffset: length,
-          fill: "none",
-          stroke: element.getAttribute('fill') || "black",
-          strokeWidth: 2
-        });
-      }
-    });
-
-    // Animation sequence
-    tl
-      // Static letters are visible from start (no animation needed)
-      
-      // Tree root drawing animation (starts at 0.5s)
-      .set("#tree-root", { opacity: 1 }, 0.5)
-      .to("#tree-root path", {
-        strokeDashoffset: 0,
-        duration: 1,
-        ease: "power2.inOut"
-      }, 0.5)
-      .to("#tree-root path", {
-        fill: "black",
-        duration: 0.3
-      }, 1.2)
-
-      // Tree trunk drawing animation (starts while root is filling)
-      .set("#tree-trunk", { opacity: 1 }, 1.2)
-      .to("#tree-trunk path", {
-        strokeDashoffset: 0,
-        duration: 0.8,
-        ease: "power2.inOut"
-      }, 1.2)
-      .to("#tree-trunk path", {
-        fill: "black",
-        duration: 0.3
-      }, 1.7)
-
-      // Branch 1 drawing animation (starts while trunk is filling)
-      .set("#Y-branch1", { opacity: 1 }, 1.7)
-      .to("#Y-branch1 path", {
-        strokeDashoffset: 0,
-        duration: 1,
-        ease: "power2.inOut"
-      }, 1.7)
-      .to("#Y-branch1 path", {
-        fill: "black",
-        duration: 0.3
-      }, 2.4)
-
-      // Branch 2 drawing animation (starts while branch1 is filling)
-      .set("#Y-branch2", { opacity: 1 }, 2.4)
-      .to("#Y-branch2", {
-        strokeDashoffset: 0,
-        duration: 1,
-        ease: "power2.inOut"
-      }, 2.4)
-      .to("#Y-branch2", {
-        fill: "black",
-        duration: 0.3
-      }, 3.1)
-
-      // Leaves appear chronologically (normal appearance, no drawing)
-      .set("#Y-leaf1", { opacity: 1 }, 3.4)
-      .set("#Y-leaf2", { opacity: 1 }, 3.6)
-      .set("#Y-leaf3", { opacity: 1 }, 3.8)
-      .set("#Y-leaf4", { opacity: 1 }, 4.0)
-      .set("#Y-leaf5", { opacity: 1 }, 4.2)
-      .set("#Y-leaf6", { opacity: 1 }, 4.4);
-
-  }, { scope: logoRef });
-
-  return (
-    <div 
-      ref={logoRef}
-      className={`fixed inset-0 flex items-center justify-center w-full h-full ${className}`}
-    >
-      <div 
-        className="w-full max-w-[250px] sm:max-w-[300px]"
-        style={{ aspectRatio: '201/182' }}
-      >
-      {/* PASTE YOUR SVG HERE - Replace the viewBox and dimensions to match your SVG */}
-      <svg 
-        width="100%" 
-        height="100%" 
-        viewBox="0 0 201 182" 
-        fill="none" 
+<svg
+        width="201"
+        height="182"
+        viewBox="201 182"
+        fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full"
       >
-                <g id="Xylem SVG" clipPath="url(#clip0_12_32)">
+        <g id="Xylem SVG" clipPath="url(#clip0_12_32)">
 
           {/* <!-- Static Letters --> */}
           <g id="static-letters">
@@ -716,11 +604,4 @@ const AnimatedLogo = ({ className = "" }) => {
             <rect width="201" height="182" fill="white" />
           </clipPath>
         </defs>
-        
       </svg>
-      </div>
-    </div>
-  );
-};
-
-export default AnimatedLogo;
