@@ -12,99 +12,116 @@ const AnimatedLogo = ({
   const containerRef = useRef(null);
   const svgRef = useRef(null);
 
- useGSAP(() => {
-  if (!svgRef.current || !autoPlay) return;
-  const svg = svgRef.current;
-  // Fetch SVG elements
-  const staticLetters = svg.querySelector("#Static-letters");
-  const tree = svg.querySelector("#Tree");
-  const treeFillPath = tree?.querySelector("path[fill='black']");
-  const treeStroke = tree?.querySelector('path[stroke="black"]');
-  const leaves = [
-    svg.querySelector("#Y-leaf1"),
-    svg.querySelector("#Y-leaf2"),
-    svg.querySelector("#Y-leaf3"),
-    svg.querySelector("#Y-leaf4"),
-    svg.querySelector("#Y-leaf5"),
-    svg.querySelector("#Y-leaf6"),
-  ].filter(Boolean);
+  useGSAP(
+    () => {
+      if (!svgRef.current || !autoPlay) return;
+      const svg = svgRef.current;
+      // Fetch SVG elements
+      const staticLetters = svg.querySelector("#Static-letters");
+      const tree = svg.querySelector("#Tree");
+      const treeFillPath = tree?.querySelector("path[fill='black']");
+      const treeStroke = tree?.querySelector('path[stroke="black"]');
+      const leaves = [
+        svg.querySelector("#Y-leaf1"),
+        svg.querySelector("#Y-leaf2"),
+        svg.querySelector("#Y-leaf3"),
+        svg.querySelector("#Y-leaf4"),
+        svg.querySelector("#Y-leaf5"),
+        svg.querySelector("#Y-leaf6"),
+      ].filter(Boolean);
 
-  // Create timeline
-  const tl = gsap.timeline();
+      // Create timeline
+      const tl = gsap.timeline();
 
-  // Initial states
-  gsap.set(staticLetters, { opacity: 0, y: 30 });
-  gsap.set(treeFillPath, { opacity: 0, display: "none" });
-  gsap.set(leaves, {
-    opacity: 0,
-    scale: 0,
-    rotation: -10,
-    transformOrigin: "center center",
-  });
+      // Initial states
+      gsap.set(staticLetters, { opacity: 0, y: 30 });
+      gsap.set(treeFillPath, { opacity: 0, display: "none" });
+      gsap.set(leaves, {
+        opacity: 0,
+        scale: 0,
+        rotation: -10,
+        transformOrigin: "center center",
+      });
 
-  // Setup tree stroke for drawing
-  if (treeStroke) {
-    const pathLength = treeStroke.getTotalLength();
-    gsap.set(treeStroke, {
-      opacity: 0,
-      strokeDasharray: pathLength,
-      strokeDashoffset: pathLength,
-      fill: "none",
-      stroke: "black",
-      strokeWidth: "2",
-    });
-  }
+      // Setup tree stroke for drawing
+      if (treeStroke) {
+        const pathLength = treeStroke.getTotalLength();
+        gsap.set(treeStroke, {
+          opacity: 0,
+          strokeDasharray: pathLength,
+          strokeDashoffset: pathLength,
+          fill: "none",
+          stroke: "black",
+          strokeWidth: "2",
+        });
+      }
 
-  // Animations sequence
-  tl
-    // Animate static letters in
-    .to(staticLetters, {
-      opacity: 1,
-      y: 0,
-      duration: 1.5,
-      ease: "power2.out",
-      delay: 0.4,
-    })
-    // Tree stroke reveal with slight delay
-    .to(treeStroke, {
-      opacity: 1,
-      duration: 0.3,
-      ease: "power2.out",
-    }, "+=0.2")
-    // Draw tree stroke (faster)
-    .to(treeStroke, {
-      strokeDashoffset: 0,
-      duration: 4,
-      ease: "power2.inOut",
-    }, "-=0.2")
-    // Show fill over stroke without hiding stroke, smoother easing
-    .set(treeFillPath, { display: "block" })
-    .to(treeFillPath, {
-      opacity: 1,
-      duration: 1, // slightly longer for smoothness
-      ease: "cubic-bezier(0.4, 0, 0.2, 1)", // custom smooth easing curve
-    }, "-=0.3")
-    // Animate leaves with stagger
-    .to(leaves, {
-      opacity: 1,
-      scale: 1,
-      rotation: 0,
-      duration: 1.2,
-      ease: "back.out(1.7)",
-      stagger: { amount: 1.5 },
-    }, "+=0.6");
+      // Animations sequence
+      tl
+        // Animate static letters in
+        .to(staticLetters, {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          delay: 0.4,
+        })
+        // Tree stroke reveal with slight delay
+        .to(
+          treeStroke,
+          {
+            opacity: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          "+=0.2"
+        )
+        // Draw tree stroke (faster)
+        .to(
+          treeStroke,
+          {
+            strokeDashoffset: 0,
+            duration: 4,
+            ease: "power2.inOut",
+          },
+          "-=0.2"
+        )
+        // Show fill over stroke without hiding stroke, smoother easing
+        .set(treeFillPath, { display: "block" })
+        .to(
+          treeFillPath,
+          {
+            opacity: 1,
+            duration: 1, // slightly longer for smoothness
+            ease: "cubic-bezier(0.4, 0, 0.2, 1)", // custom smooth easing curve
+          },
+          "-=0.3"
+        )
+        // Animate leaves with stagger
+        .to(
+          leaves,
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+            stagger: { amount: 1.5 },
+          },
+          "+=0.6"
+        );
 
-  // Callbacks and cleanup
-  if (onAnimationComplete) {
-    tl.call(onAnimationComplete);
-  }
+      // Callbacks and cleanup
+      if (onAnimationComplete) {
+        tl.call(onAnimationComplete);
+      }
 
-  return () => {
-    tl.kill();
-  };
-},
-{ scope: containerRef, dependencies: [autoPlay, onAnimationComplete] }
-);
+      return () => {
+        tl.kill();
+      };
+    },
+    { scope: containerRef, dependencies: [autoPlay, onAnimationComplete] }
+  );
 
   return (
     <div
