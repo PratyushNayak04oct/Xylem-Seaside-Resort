@@ -1,34 +1,37 @@
 @import "tailwindcss";
 
-/* Reset body and html to avoid default margins and ensure full viewport */
-html, body {
+html, body, #root, #__next {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow-x: hidden; /* prevent horizontal scroll */
+  overflow-x: hidden; /* prevents horizontal scroll */
 }
 
-/* Use flexbox on the body to center content vertically and horizontally */
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* full viewport height */
-  background-color: white; /* or whatever your background */
+  justify-content: center; /* horizontally center */
+  align-items: center;     /* vertically center */
+  min-height: 100vh;
+  background-color: white; /* or your page bg */
 }
 
-/* AnimatedLogo Container - fluid and centered */
+
 .animated-logo-container {
-  display: inline-block;
-  position: relative;
-  width: 100%;
   max-width: 400px;
+  width: 100%;
   height: auto;
-  margin: 0 auto;
+  margin: 0 auto; /* center if smaller than viewport */
 }
 
-/* Responsive widths */
+.animated-logo-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+
+/* Responsive adjustments for smaller screens */
 @media (max-width: 1024px) {
   .animated-logo-container { max-width: 350px; }
 }
@@ -40,12 +43,4 @@ body {
 }
 @media (max-width: 320px) {
   .animated-logo-container { max-width: 200px; }
-}
-
-/* SVG scales to container */
-.animated-logo-svg {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  display: block;
 }
