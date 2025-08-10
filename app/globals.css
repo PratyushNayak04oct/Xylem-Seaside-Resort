@@ -1,65 +1,51 @@
 @import "tailwindcss";
 
-/* Loading Screen */
+/* Reset body and html to avoid default margins and ensure full viewport */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
 
+/* Use flexbox on the body to center content vertically and horizontally */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* full viewport height */
+  background-color: white; /* or whatever your background */
+}
 
-/* AnimatedLogo Component Styles */
+/* AnimatedLogo Container - fluid and centered */
 .animated-logo-container {
   display: inline-block;
   position: relative;
-  max-width: 100%;
+  width: 100%;
+  max-width: 400px;
   height: auto;
+  margin: 0 auto;
 }
 
+/* Responsive widths */
+@media (max-width: 1024px) {
+  .animated-logo-container { max-width: 350px; }
+}
+@media (max-width: 768px) {
+  .animated-logo-container { max-width: 300px; }
+}
+@media (max-width: 480px) {
+  .animated-logo-container { max-width: 250px; }
+}
+@media (max-width: 320px) {
+  .animated-logo-container { max-width: 200px; }
+}
+
+/* SVG scales to container */
 .animated-logo-svg {
   width: 100%;
   height: auto;
   max-width: 100%;
   display: block;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .animated-logo-container {
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .animated-logo-container {
-    max-width: 250px;
-  }
-}
-
-@media (max-width: 320px) {
-  .animated-logo-container {
-    max-width: 200px;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .animated-logo-svg {
-    filter: contrast(1.5);
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .animated-logo-svg * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Print styles */
-@media print {
-  .animated-logo-container {
-    break-inside: avoid;
-  }
-  
-  .animated-logo-svg {
-    max-width: 200px;
-  }
 }
