@@ -86,18 +86,18 @@ const AnimatedLogo = ({
           },
           "-=0.2"
         )
-        // Show fill over stroke without hiding stroke, smoother easing
+        // Show fill over stroke without hiding stroke, slower and smoother fill animation
         .set(treeFillPath, { display: "block" })
         .to(
           treeFillPath,
           {
             opacity: 1,
-            duration: 1, // slightly longer for smoothness
-            ease: "cubic-bezier(0.4, 0, 0.2, 1)", // custom smooth easing curve
+            duration: 1.5, // slower for smooth appearance
+            ease: "power1.inOut", // smooth easing for gentle fade
           },
           "-=0.3"
         )
-        // Animate leaves with stagger
+        // Animate leaves with stagger and shortened delay after fill
         .to(
           leaves,
           {
@@ -108,8 +108,8 @@ const AnimatedLogo = ({
             ease: "back.out(1.7)",
             stagger: { amount: 1.5 },
           },
-          "+=0.6"
-        );
+          "+=0.1"
+        ); // Reduced delay from 0.8 to 0.3 for faster leaf animation start
 
       // Callbacks and cleanup
       if (onAnimationComplete) {
