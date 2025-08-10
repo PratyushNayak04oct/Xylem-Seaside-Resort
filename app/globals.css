@@ -3,58 +3,63 @@
 /* Loading Screen */
 
 
-/* Logo animation styles */
+/* AnimatedLogo Component Styles */
 .animated-logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
   height: auto;
 }
 
-.animated-logo {
-  will-change: transform;
+.animated-logo-svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
 }
 
-/* Responsive sizing */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .animated-logo {
-    max-width: 200px !important;
-    max-height: 200px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .animated-logo {
-    max-width: 150px !important;
-    max-height: 150px !important;
-  }
-}
-
-/* Optional: Add smoother transitions for better animation quality */
-.animated-logo-container {
-  will-change: transform;
-}
-
-.animated-logo-container svg path {
-  vector-effect: non-scaling-stroke;
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  .animated-logo-container {
-    max-width: 200px;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
   .animated-logo-container {
     max-width: 300px;
   }
 }
 
-@media (min-width: 1025px) {
+@media (max-width: 480px) {
   .animated-logo-container {
-    max-width: 400px;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 320px) {
+  .animated-logo-container {
+    max-width: 200px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .animated-logo-svg {
+    filter: contrast(1.5);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animated-logo-svg * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .animated-logo-container {
+    break-inside: avoid;
+  }
+  
+  .animated-logo-svg {
+    max-width: 200px;
   }
 }
