@@ -1,4 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
 
 const AnimatedLogo = ({
   className = "",
@@ -10,116 +12,99 @@ const AnimatedLogo = ({
   const containerRef = useRef(null);
   const svgRef = useRef(null);
 
-  useEffect(() => {
-    if (!svgRef.current) return;
+ useGSAP(() => {
+  if (!svgRef.current || !autoPlay) return;
+  const svg = svgRef.current;
+  // Fetch SVG elements
+  const staticLetters = svg.querySelector("#Static-letters");
+  const tree = svg.querySelector("#Tree");
+  const treeFillPath = tree?.querySelector("path[fill='black']");
+  const treeStroke = tree?.querySelector('path[stroke="black"]');
+  const leaves = [
+    svg.querySelector("#Y-leaf1"),
+    svg.querySelector("#Y-leaf2"),
+    svg.querySelector("#Y-leaf3"),
+    svg.querySelector("#Y-leaf4"),
+    svg.querySelector("#Y-leaf5"),
+    svg.querySelector("#Y-leaf6"),
+  ].filter(Boolean);
 
-    const svg = svgRef.current;
+  // Create timeline
+  const tl = gsap.timeline();
 
-    // Get elements
-    const staticLetters = svg.querySelector("#Static-letters");
-    const tree = svg.querySelector("#Tree");
-    const treeFillPath = tree?.querySelector("path[fill='black']");
-    const treeStroke = tree?.querySelector('path[stroke="black"]');
-    const leaves = [
-      svg.querySelector("#Y-leaf1"),
-      svg.querySelector("#Y-leaf2"),
-      svg.querySelector("#Y-leaf3"),
-      svg.querySelector("#Y-leaf4"),
-      svg.querySelector("#Y-leaf5"),
-      svg.querySelector("#Y-leaf6"),
-    ];
+  // Initial states
+  gsap.set(staticLetters, { opacity: 0, y: 30 });
+  gsap.set(treeFillPath, { opacity: 0, display: "none" });
+  gsap.set(leaves, {
+    opacity: 0,
+    scale: 0,
+    rotation: -10,
+    transformOrigin: "center center",
+  });
 
-    // Animation function
-    const animateElements = () => {
-      // Initial states - hide everything
-      if (staticLetters) {
-        staticLetters.style.opacity = "0";
-        staticLetters.style.transform = "translateY(30px)";
-        staticLetters.style.transition =
-          "opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1)";
-      }
+  // Setup tree stroke for drawing
+  if (treeStroke) {
+    const pathLength = treeStroke.getTotalLength();
+    gsap.set(treeStroke, {
+      opacity: 0,
+      strokeDasharray: pathLength,
+      strokeDashoffset: pathLength,
+      fill: "none",
+      stroke: "black",
+      strokeWidth: "2",
+    });
+  }
 
-      // HIDE the filled tree path completely during drawing
-      if (treeFillPath) {
-        treeFillPath.style.opacity = "0";
-        treeFillPath.style.display = "none";
-        treeFillPath.style.transition =
-          "opacity 1s cubic-bezier(0.4, 0, 0.2, 1)";
-      }
+  // Animations sequence
+  tl
+    // Animate static letters in
+    .to(staticLetters, {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      ease: "power2.out",
+      delay: 0.4,
+    })
+    // Tree stroke reveal with slight delay
+    .to(treeStroke, {
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    }, "+=0.2")
+    // Draw tree stroke (faster)
+    .to(treeStroke, {
+      strokeDashoffset: 0,
+      duration: 4,
+      ease: "power2.inOut",
+    }, "-=0.2")
+    // Show fill over stroke without hiding stroke, smoother easing
+    .set(treeFillPath, { display: "block" })
+    .to(treeFillPath, {
+      opacity: 1,
+      duration: 1, // slightly longer for smoothness
+      ease: "cubic-bezier(0.4, 0, 0.2, 1)", // custom smooth easing curve
+    }, "-=0.3")
+    // Animate leaves with stagger
+    .to(leaves, {
+      opacity: 1,
+      scale: 1,
+      rotation: 0,
+      duration: 1.2,
+      ease: "back.out(1.7)",
+      stagger: { amount: 1.5 },
+    }, "+=0.6");
 
-      // Hide leaves initially
-      leaves.forEach((leaf, index) => {
-        if (leaf) {
-          leaf.style.opacity = "0";
-          leaf.style.transform = "scale(0) rotate(-10deg)";
-          leaf.style.transformOrigin = "center center";
-          leaf.style.transition = `opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)`;
-        }
-      });
+  // Callbacks and cleanup
+  if (onAnimationComplete) {
+    tl.call(onAnimationComplete);
+  }
 
-      // Prepare tree stroke for drawing animation
-      if (treeStroke) {
-        const pathLength = treeStroke.getTotalLength();
-        treeStroke.style.opacity = "0";
-        treeStroke.style.strokeDasharray = `${pathLength}`;
-        treeStroke.style.strokeDashoffset = `${pathLength}`;
-        treeStroke.style.fill = "none";
-        treeStroke.style.stroke = "black";
-        treeStroke.style.strokeWidth = "2";
-        treeStroke.style.transition =
-          "opacity 0.3s ease-out, stroke-dashoffset 4s cubic-bezier(0.4, 0, 0.2, 1)";
-      }
-
-      if (!autoPlay) return;
-
-      // Start animation sequence
-      setTimeout(() => {
-        if (staticLetters) {
-          staticLetters.style.opacity = "1";
-          staticLetters.style.transform = "translateY(0)";
-        }
-      }, 400);
-
-      setTimeout(() => {
-        if (treeStroke) {
-          treeStroke.style.opacity = "1";
-          setTimeout(() => {
-            treeStroke.style.strokeDashoffset = "0";
-          }, 100);
-        }
-      }, 2200);
-
-      setTimeout(() => {
-        if (treeStroke) {
-          treeStroke.style.opacity = "0";
-          treeStroke.style.transition = "opacity 0.6s ease-out";
-        }
-        if (treeFillPath) {
-          treeFillPath.style.display = "block";
-          treeFillPath.style.opacity = "1";
-        }
-      }, 6400);
-
-      // Animate leaves
-      const leafDelays = [7000, 7200, 7400, 7600, 7800, 8000];
-      leaves.forEach((leaf, index) => {
-        if (leaf) {
-          setTimeout(() => {
-            leaf.style.opacity = "1";
-            leaf.style.transform = "scale(1) rotate(0deg)";
-          }, leafDelays[index]);
-        }
-      });
-
-      if (onAnimationComplete) {
-        setTimeout(() => {
-          onAnimationComplete();
-        }, 9000);
-      }
-    };
-
-    animateElements();
-  }, [autoPlay, onAnimationComplete]);
+  return () => {
+    tl.kill();
+  };
+},
+{ scope: containerRef, dependencies: [autoPlay, onAnimationComplete] }
+);
 
   return (
     <div
@@ -136,6 +121,7 @@ const AnimatedLogo = ({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        {/* PASTE YOUR SVG CODE HERE - Replace this comment with the entire SVG content from your file, starting from the <g id="SVG-Logo"> element and ending with the closing </g> tag */}
         <g id="SVG-Logo">
           <g id="Tree">
             <path
