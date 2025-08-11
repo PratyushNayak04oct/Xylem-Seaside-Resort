@@ -13,6 +13,7 @@ body {
   padding: 0;
   font-feature-settings: 'kern' 1;
   text-rendering: optimizeLegibility;
+  background: #000; /* Ensure black background to prevent white flash */
 }
 
 /* Animated Logo Styles */
@@ -47,7 +48,7 @@ body {
   z-index: 9999;
   background: #000;
   transform: translateY(0);
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -62,6 +63,7 @@ body {
 .main-content {
   position: relative;
   z-index: 1;
+  background: #000; /* Black background to prevent white flash */
   transition: opacity 0.6s ease-in-out;
   will-change: opacity;
 }
@@ -74,20 +76,10 @@ body {
   opacity: 1;
 }
 
-/* Hero section with subtle entrance animation */
+/* Hero Section - GSAP handles all animations */
 .hero-section {
-  animation: fadeInUp 0.8s ease-out 0.2s both;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  background: #000; /* Black background */
+  /* GSAP will handle all opacity and transform animations */
 }
 
 /* Feature cards with staggered animation */
@@ -99,6 +91,17 @@ body {
 .feature-card:nth-child(1) { --animation-order: 1; }
 .feature-card:nth-child(2) { --animation-order: 2; }
 .feature-card:nth-child(3) { --animation-order: 3; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Button hover effects */
 .btn-primary, .btn-secondary {
@@ -137,7 +140,7 @@ body {
   }
 }
 
-/* Reduce motion for accessibility */
+/* Reduce motion for accessibility - GSAP animations will be disabled via JavaScript */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -152,7 +155,6 @@ body {
     transition: none;
   }
   
-  .hero-section,
   .feature-card {
     animation: none;
   }
@@ -192,10 +194,6 @@ body {
     max-width: 200px;
     width: 75%;
     padding: 0.75rem;
-  }
-  
-  .hero-section {
-    animation-delay: 0.1s;
   }
 }
 
