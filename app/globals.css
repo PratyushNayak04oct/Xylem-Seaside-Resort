@@ -1,27 +1,16 @@
 @import "tailwindcss";
 
-html, body, #root, #__next {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden; /* prevents horizontal scroll */
-}
-
-body {
-  display: flex;
-  justify-content: center; /* horizontally center */
-  align-items: center;     /* vertically center */
-  min-height: 100vh;
-  background-color: white; /* or your page bg */
-}
-
-
 .animated-logo-container {
-  max-width: 400px;
-  width: 100%;
+  max-width: 280px;
+  width: 90%;
   height: auto;
-  margin: 0 auto; /* center if smaller than viewport */
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
 .animated-logo-svg {
@@ -31,16 +20,87 @@ body {
   max-width: 100%;
 }
 
-/* Responsive adjustments for smaller screens */
+/* Responsive adjustments for all devices */
+@media (max-width: 1200px) {
+  .animated-logo-container { 
+    max-width: 250px;
+    width: 85%;
+  }
+}
+
 @media (max-width: 1024px) {
-  .animated-logo-container { max-width: 350px; }
+  .animated-logo-container { 
+    max-width: 220px;
+    width: 80%;
+  }
 }
+
 @media (max-width: 768px) {
-  .animated-logo-container { max-width: 300px; }
+  .animated-logo-container { 
+    max-width: 200px;
+    width: 75%;
+    padding: 0.75rem;
+  }
 }
+
+@media (max-width: 640px) {
+  .animated-logo-container { 
+    max-width: 180px;
+    width: 70%;
+    padding: 0.5rem;
+  }
+}
+
 @media (max-width: 480px) {
-  .animated-logo-container { max-width: 250px; }
+  .animated-logo-container { 
+    max-width: 160px;
+    width: 65%;
+  }
 }
+
+@media (max-width: 375px) {
+  .animated-logo-container { 
+    max-width: 140px;
+    width: 60%;
+  }
+}
+
 @media (max-width: 320px) {
-  .animated-logo-container { max-width: 200px; }
+  .animated-logo-container { 
+    max-width: 120px;
+    width: 55%;
+    padding: 0.25rem;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .animated-logo-container { 
+    max-width: 150px;
+    width: 25vw;
+    padding: 0.25rem;
+  }
+}
+
+/* Very small screens (smartwatches, etc.) */
+@media (max-width: 280px) {
+  .animated-logo-container { 
+    max-width: 100px;
+    width: 50%;
+    padding: 0.125rem;
+  }
+}
+
+/* Large screens - prevent logo from being too big */
+@media (min-width: 1920px) {
+  .animated-logo-container { 
+    max-width: 320px;
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 2560px) {
+  .animated-logo-container { 
+    max-width: 360px;
+  }
 }
