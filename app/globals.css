@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Performance optimizations */
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-feature-settings: 'kern' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Animated Logo Styles */
 .animated-logo-container {
   max-width: 280px;
   width: 90%;
@@ -11,6 +27,7 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  will-change: transform, opacity;
 }
 
 .animated-logo-svg {
@@ -18,6 +35,141 @@
   height: auto;
   display: block;
   max-width: 100%;
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: #000;
+  transform: translateY(0);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Smooth parallax swipe-up animation */
+.loading-screen.animate-out {
+  transform: translateY(-100%);
+}
+
+/* Main content animation */
+.main-content {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.6s ease-in-out;
+  will-change: opacity;
+}
+
+.content-hidden {
+  opacity: 0;
+}
+
+.content-visible {
+  opacity: 1;
+}
+
+/* Hero section with subtle entrance animation */
+.hero-section {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Feature cards with staggered animation */
+.feature-card {
+  animation: fadeInUp 0.6s ease-out both;
+  animation-delay: calc(var(--animation-order, 0) * 0.1s);
+}
+
+.feature-card:nth-child(1) { --animation-order: 1; }
+.feature-card:nth-child(2) { --animation-order: 2; }
+.feature-card:nth-child(3) { --animation-order: 3; }
+
+/* Button hover effects */
+.btn-primary, .btn-secondary {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .loading-screen {
+    border: 2px solid;
+  }
+  
+  .btn-primary, .btn-secondary {
+    border-width: 2px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .loading-screen {
+    transition: none;
+  }
+  
+  .hero-section,
+  .feature-card {
+    animation: none;
+  }
+}
+
+/* Focus management */
+.loading-screen:focus-within {
+  outline: none;
+}
+
+*:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* Responsive adjustments for all devices */
@@ -41,6 +193,10 @@
     width: 75%;
     padding: 0.75rem;
   }
+  
+  .hero-section {
+    animation-delay: 0.1s;
+  }
 }
 
 @media (max-width: 640px) {
@@ -55,6 +211,10 @@
   .animated-logo-container { 
     max-width: 160px;
     width: 65%;
+  }
+  
+  .loading-screen.animate-out {
+    transition-duration: 0.6s;
   }
 }
 
@@ -80,6 +240,10 @@
     width: 25vw;
     padding: 0.25rem;
   }
+  
+  .loading-screen.animate-out {
+    transition-duration: 0.6s;
+  }
 }
 
 /* Very small screens (smartwatches, etc.) */
@@ -102,5 +266,21 @@
 @media (min-width: 2560px) {
   .animated-logo-container { 
     max-width: 360px;
+  }
+}
+
+/* Performance optimizations for animations */
+.loading-screen,
+.main-content,
+.animated-logo-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Container queries support (future-proofing) */
+@container (max-width: 768px) {
+  .feature-card {
+    padding: 1rem;
   }
 }
