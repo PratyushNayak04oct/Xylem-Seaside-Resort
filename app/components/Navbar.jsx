@@ -179,15 +179,13 @@ const Navbar = () => {
     
     if (isEntering) {
       gsap.to(item, {
-        y: -2,
-        color: "#3b82f6",
+        y: -4,
         duration: 0.3,
         ease: "power2.out"
       });
     } else {
       gsap.to(item, {
         y: 0,
-        color: "#ffffff",
         duration: 0.3,
         ease: "power2.out"
       });
@@ -207,13 +205,13 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Desktop Navigation - Left Side */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-12">
               {navItems.slice(0, 3).map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
                   ref={el => navItemsRef.current[index] = el}
-                  className="nav-link text-white font-medium text-lg tracking-wide hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer"
                   onMouseEnter={(e) => handleNavItemHover(e, true)}
                   onMouseLeave={(e) => handleNavItemHover(e, false)}
                 >
@@ -225,21 +223,28 @@ const Navbar = () => {
             {/* Logo - Center */}
             <div
               ref={logoRef}
-              className="flex-shrink-0 cursor-pointer group"
+              className="flex-shrink-0 cursor-pointer group logo-container"
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
-                <span className="text-white font-bold text-lg md:text-xl">L</span>
+              <div className="w-12 h-12 md:w-16 md:h-16 relative transform hover:scale-110 transition-transform duration-300 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
+                <Image
+                  src="/Xylem-Logo.webp"
+                  alt="Xylem Logo"
+                  fill
+                  className="object-contain p-2"
+                  priority
+                  sizes="(max-width: 768px) 48px, 64px"
+                />
               </div>
             </div>
 
             {/* Desktop Navigation - Right Side */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-12">
               {navItems.slice(3).map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
                   ref={el => navItemsRef.current[index + 3] = el}
-                  className="nav-link text-white font-medium text-lg tracking-wide hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer"
                   onMouseEnter={(e) => handleNavItemHover(e, true)}
                   onMouseLeave={(e) => handleNavItemHover(e, false)}
                 >
@@ -251,7 +256,7 @@ const Navbar = () => {
             {/* Mobile Hamburger Button */}
             <button
               ref={hamburgerRef}
-              className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 cursor-pointer"
+              className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 cursor-pointer hamburger-container"
               onClick={handleMobileToggle}
               aria-label="Toggle mobile menu"
             >
@@ -267,7 +272,7 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm mobile-overlay"
           style={{ opacity: 0 }}
           onClick={handleMobileToggle}
         />
@@ -276,14 +281,20 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className={`fixed top-0 right-0 h-full w-80 bg-[rgba(0,0,0,0.95)] backdrop-blur-md z-50 transform translate-x-full`}
+        className="fixed top-0 right-0 h-full w-80 bg-[rgba(0,0,0,0.95)] backdrop-blur-md z-50 transform translate-x-full mobile-menu"
         style={{ maxWidth: "85vw" }}
       >
         <div className="flex flex-col h-full pt-20 px-8">
           {/* Mobile Logo */}
           <div className="flex justify-center mb-12">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">L</span>
+            <div className="w-16 h-16 relative rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
+              <Image
+                src="/Xylem-Logo.webp"
+                alt="Xylem Logo"
+                fill
+                className="object-contain p-2"
+                sizes="64px"
+              />
             </div>
           </div>
 
@@ -303,7 +314,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Footer */}
           <div className="mt-auto mb-8 text-center">
-            <p className="text-gray-400 text-sm">© 2024 Your Brand</p>
+            <p className="text-gray-400 text-sm">© 2024 Xylem</p>
           </div>
         </div>
       </div>
@@ -359,6 +370,33 @@ const Navbar = () => {
         .fixed {
           -webkit-transform: translateZ(0);
           transform: translateZ(0);
+        }
+
+        /* Logo container hover effect */
+        .logo-container::before {
+          content: '';
+          position: absolute;
+          top: -4px;
+          left: -4px;
+          right: -4px;
+          bottom: -4px;
+          background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+          background-size: 400% 400%;
+          border-radius: 50%;
+          opacity: 0;
+          z-index: -1;
+          animation: gradientShift 3s ease infinite;
+          transition: opacity 0.3s ease;
+        }
+
+        .logo-container:hover::before {
+          opacity: 0.7;
+        }
+
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
       `}</style>
     </>
