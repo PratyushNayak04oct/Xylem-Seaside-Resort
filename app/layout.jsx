@@ -1,4 +1,5 @@
 import "./globals.css";
+import Navbar from "./components/Navbar";
 
 export const metadata = {
   title: "Xylem Seaside Resort",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         <link rel="canonical" href="https://www.xylemseasideresort.com" />
       </head>
       <body>
+        <Navbar />
         {children}
       </body>
     </html>
