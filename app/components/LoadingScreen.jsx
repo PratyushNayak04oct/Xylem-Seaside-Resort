@@ -10,7 +10,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
   const [showContent, setShowContent] = useState(false);
 
   const handleAnimationComplete = useCallback(() => {
-    // Wait 500ms after logo animation completes
+    // Wait 300ms after logo animation completes (reduced from 500ms)
     setTimeout(() => {
       setIsAnimatingOut(true);
       
@@ -19,7 +19,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
         setShowContent(true);
         onLoadingComplete?.();
       }, 800); // Match CSS animation duration
-    }, 500);
+    }, 300);
   }, [onLoadingComplete]);
 
   if (showContent) {
@@ -48,9 +48,11 @@ const LoadingScreen = ({ onLoadingComplete }) => {
           loading="eager"
         />
         
-        {/* Loading content container */}
-        <div className="absolute inset-0 flex items-center justify-center p-4">
-          <AnimatedLogo onAnimationComplete={handleAnimationComplete} />
+        {/* Loading content container with improved centering and padding */}
+        <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
+          <div className="w-full max-w-md aspect-square flex items-center justify-center">
+            <AnimatedLogo onAnimationComplete={handleAnimationComplete} />
+          </div>
         </div>
         
         {/* Loading indicator for screen readers */}

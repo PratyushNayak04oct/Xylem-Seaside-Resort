@@ -43,12 +43,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isClient]);
 
-  // Initial animations on component mount
+  // Initial animations on component mount - Updated timing
   useEffect(() => {
     if (!isClient) return;
     
     const ctx = gsap.context(() => {
-      // Navbar slide down animation
+      // Navbar slide down animation - earlier start
       gsap.fromTo(navRef.current, 
         { 
           y: -100, 
@@ -59,27 +59,11 @@ const Navbar = () => {
           opacity: 1, 
           duration: 1,
           ease: "power3.out",
-          delay: 0.5
+          delay: 0.2 // Reduced from 0.5
         }
       );
 
-      // Staggered animation for nav items
-      gsap.fromTo(navItemsRef.current, 
-        { 
-          y: -30, 
-          opacity: 0 
-        },
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power2.out",
-          delay: 0.8
-        }
-      );
-
-      // Logo animation
+      // Logo animation - appears first now
       gsap.fromTo(logoRef.current, 
         { 
           scale: 0, 
@@ -92,7 +76,23 @@ const Navbar = () => {
           opacity: 1, 
           duration: 1.2,
           ease: "elastic.out(1, 0.5)",
-          delay: 1
+          delay: 0.3 // Reduced from 1, appears before nav items
+        }
+      );
+
+      // Staggered animation for nav items - appears after logo
+      gsap.fromTo(navItemsRef.current, 
+        { 
+          y: -30, 
+          opacity: 0 
+        },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          delay: 0.6 // Reduced from 0.8, appears after logo
         }
       );
     }, navRef);
@@ -235,7 +235,7 @@ const Navbar = () => {
   // Render a simple version on server, full version on client
   if (!isClient) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[rgba(0,0,0,0.35)] backdrop-blur-sm py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[rgba(0,0,0,0.55)] backdrop-blur-sm py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Desktop Navigation - Left Side */}
@@ -448,9 +448,9 @@ const Navbar = () => {
 
       {/* Enhanced CSS for improved animations and responsiveness */}
       <style jsx>{`
-        /* Import the external navbar styles */
+        /* Updated navbar glass styles with darker background */
         .navbar-glass {
-          background: rgba(0, 0, 0, 0.45);
+          background: rgba(0, 0, 0, 0.55); /* Increased from 0.45 */
           backdrop-filter: blur(20px) saturate(180%);
           -webkit-backdrop-filter: blur(20px) saturate(180%);
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -458,7 +458,7 @@ const Navbar = () => {
         }
 
         .navbar-glass.scrolled {
-          background: rgba(0, 0, 0, 0.8);
+          background: rgba(0, 0, 0, 0.85); /* Increased from 0.8 */
           backdrop-filter: blur(30px) saturate(200%);
           -webkit-backdrop-filter: blur(30px) saturate(200%);
           border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -495,8 +495,6 @@ const Navbar = () => {
           transform: translateX(-50%) scaleX(1);
           background-position: -200% 0;
         }
-
-        /* Logo hover effects - REMOVED */
 
         /* Mobile menu enhanced styles */
         .mobile-menu {

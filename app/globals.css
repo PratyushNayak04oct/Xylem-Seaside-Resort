@@ -27,8 +27,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0; /* ✅ remove padding that may push logo */
   will-change: transform, opacity;
+  overflow: visible; /* ✅ make sure logo is not cropped */
 }
 
 .animated-logo-svg {
@@ -36,6 +37,7 @@ body {
   height: auto;
   display: block;
   max-width: 100%;
+  overflow: visible ; 
 }
 
 /* Loading Screen Styles */
@@ -47,11 +49,15 @@ body {
   bottom: 0;
   z-index: 9999;
   background: #000;
+  display: flex; /* ✅ make container flex */
+  align-items: center; /* ✅ vertically center */
+  justify-content: center; /* ✅ horizontally center */
   transform: translateY(0);
   transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  overflow: hidden; /* ✅ prevent weird scrollbars */
 }
 
 /* Smooth parallax swipe-up animation */
@@ -285,9 +291,7 @@ body {
 
 
 /* Navbar */
-/* Navbar Additional Styles */
 
-/* Enhanced backdrop blur and glassmorphism effect */
 .navbar-glass {
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(20px) saturate(180%);
