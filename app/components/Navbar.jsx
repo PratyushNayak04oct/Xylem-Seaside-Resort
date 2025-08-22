@@ -7,6 +7,7 @@ import Image from "next/image";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isClient, setIsClient] = useState(false); // Add this state
   const navRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const navItemsRef = useRef([]);
@@ -14,28 +15,37 @@ const Navbar = () => {
   const hamburgerRef = useRef(null);
   const overlayRef = useRef(null);
 
-  // Navigation items
+  // Navigation items - ensure consistent rendering
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Rooms", href: "#rooms" },
-    { name: "Amenities", href: "#amenities" },
-    { name: "Food", href: "#food" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" }
+    { name: "Home", href: "/" },
+    { name: "Rooms", href: "/rooms" },
+    { name: "Amenities", href: "/amenities" },
+    { name: "Food", href: "/food" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" }
   ];
+
+  // Set client state after hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Handle scroll effect
   useEffect(() => {
+    if (!isClient) return; // Only run on client
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isClient]);
 
   // Initial animations on component mount
   useEffect(() => {
+    if (!isClient) return; // Only run on client
+    
     const ctx = gsap.context(() => {
       // Navbar slide down animation
       gsap.fromTo(navRef.current, 
@@ -87,10 +97,12 @@ const Navbar = () => {
     }, navRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isClient]);
 
   // Mobile menu animations
   const toggleMobileMenu = () => {
+    if (!isClient) return; // Only run on client
+    
     if (!isMobileMenuOpen) {
       setIsMobileMenuOpen(true);
       
@@ -152,6 +164,8 @@ const Navbar = () => {
 
   // Hamburger animation
   const animateHamburger = (isOpen) => {
+    if (!isClient || !hamburgerRef.current) return;
+    
     const lines = hamburgerRef.current.querySelectorAll('.hamburger-line');
     
     if (isOpen) {
@@ -175,6 +189,8 @@ const Navbar = () => {
 
   // Nav item hover animations
   const handleNavItemHover = (e, isEntering) => {
+    if (!isClient) return;
+    
     const item = e.target;
     
     if (isEntering) {
@@ -191,6 +207,67 @@ const Navbar = () => {
       });
     }
   };
+
+  // Render a simple version on server, full version on client
+  if (!isClient) {
+    return (
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[rgba(0,0,0,0.35)] backdrop-blur-sm py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Desktop Navigation - Left Side */}
+            <div className="hidden md:flex items-center space-x-12">
+              {navItems.slice(0, 3).map((item, index) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Logo - Center */}
+            <div className="flex-shrink-0 cursor-pointer group logo-container">
+              <div className="w-12 h-12 md:w-16 md:h-16 relative transform hover:scale-110 transition-transform duration-300 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
+                <Image
+                  src="/Circular-logo.webp"
+                  alt="Xylem Logo"
+                  fill
+                  className="object-contain p-2"
+                  priority
+                  sizes="(max-width: 768px) 48px, 64px"
+                />
+              </div>
+            </div>
+
+            {/* Desktop Navigation - Right Side */}
+            <div className="hidden md:flex items-center space-x-12">
+              {navItems.slice(3).map((item, index) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 cursor-pointer hamburger-container"
+              aria-label="Toggle mobile menu"
+            >
+              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <>
@@ -227,7 +304,7 @@ const Navbar = () => {
             >
               <div className="w-12 h-12 md:w-16 md:h-16 relative transform hover:scale-110 transition-transform duration-300 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
                 <Image
-                  src="/Xylem-Logo.webp"
+                  src="/Circular-logo.webp"
                   alt="Xylem Logo"
                   fill
                   className="object-contain p-2"
