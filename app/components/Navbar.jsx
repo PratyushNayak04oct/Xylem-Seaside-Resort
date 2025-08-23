@@ -43,25 +43,22 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isClient]);
 
-  // Simple mounting animation like the first code
+  // Simple mounting animation - only slide down, no going up
   useEffect(() => {
     if (!isClient) return;
     
     const ctx = gsap.context(() => {
-      // Simple navbar slide down animation - same as first code
-      gsap.fromTo(navRef.current, 
-        { 
-          y: -100, 
-          opacity: 0 
-        },
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 1,
-          delay: 0.5,
-          ease: "power2.out"
-        }
-      );
+      // Set initial state without animation, then animate down
+      gsap.set(navRef.current, { y: -100, opacity: 0 });
+      
+      // Simple slide down animation
+      gsap.to(navRef.current, { 
+        y: 0, 
+        opacity: 1, 
+        duration: 1,
+        delay: 0.5,
+        ease: "power2.out"
+      });
     }, navRef);
 
     return () => ctx.revert();
