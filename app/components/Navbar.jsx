@@ -43,12 +43,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isClient]);
 
-  // Initial animations on component mount - Updated timing
+  // Simple mounting animation like the first code
   useEffect(() => {
     if (!isClient) return;
     
     const ctx = gsap.context(() => {
-      // Navbar slide down animation - earlier start
+      // Simple navbar slide down animation - same as first code
       gsap.fromTo(navRef.current, 
         { 
           y: -100, 
@@ -58,41 +58,8 @@ const Navbar = () => {
           y: 0, 
           opacity: 1, 
           duration: 1,
-          ease: "power3.out",
-          delay: 0.2 // Reduced from 0.5
-        }
-      );
-
-      // Logo animation - appears first now
-      gsap.fromTo(logoRef.current, 
-        { 
-          scale: 0, 
-          rotation: -180, 
-          opacity: 0 
-        },
-        { 
-          scale: 1, 
-          rotation: 0, 
-          opacity: 1, 
-          duration: 1.2,
-          ease: "elastic.out(1, 0.5)",
-          delay: 0.3 // Reduced from 1, appears before nav items
-        }
-      );
-
-      // Staggered animation for nav items - appears after logo
-      gsap.fromTo(navItemsRef.current, 
-        { 
-          y: -30, 
-          opacity: 0 
-        },
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power2.out",
-          delay: 0.6 // Reduced from 0.8, appears after logo
+          delay: 0.5,
+          ease: "power2.out"
         }
       );
     }, navRef);
