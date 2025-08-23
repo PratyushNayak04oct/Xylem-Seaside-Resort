@@ -1,22 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import SEOMetadata from "./components/SEOMetadata";
-import { useLoading } from "./components/ClientLayout";
+import LoadingScreen from "./components/LoadingScreen"; // Add this import
 
 // Lazy load the HeroSection for performance
 const HeroSection = dynamic(() => import("./components/HeroSection"), {
   ssr: false,
-  loading: () => (
-    <div 
-      className="h-screen w-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center"
-      role="status"
-      aria-label="Loading hero section"
-    >
-      <div className="text-white text-xl">Loading...</div>
-    </div>
-  )
+  loading: () => null // Remove the loading fallback since we have the loading screen
 });
 
 // Main Home Content Component
@@ -32,7 +24,11 @@ const HomeContent = React.memo(() => {
 HomeContent.displayName = 'HomeContent';
 
 export default function Home() {
-  const { contentVisible } = useLoading();
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+
+  const handleLoadingComplete = () => {
+    setIsLoadingComplete(true);
+  };
 
   return (
     <>
@@ -50,9 +46,19 @@ export default function Home() {
       >
         Skip to main content
       </a>
+
+      {/* Loading Screen */}
+      {!isLoadingComplete && (
+        <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+      )}
       
-      {/* Only render content when loading is complete */}
-      {contentVisible && <HomeContent />}
+      {/* Main Content */}
+      <div 
+        className={`main-content ${isLoadingComplete ? 'content-visible' : 'content-hidden'}`}
+        id="main-content"
+      >
+        <HomeContent />
+      </div>
     </>
   );
 }

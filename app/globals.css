@@ -48,21 +48,13 @@ body {
   right: 0;
   bottom: 0;
   z-index: 9999;
-  background: #000;
   display: flex; /* ✅ make container flex */
   align-items: center; /* ✅ vertically center */
   justify-content: center; /* ✅ horizontally center */
-  transform: translateY(0);
-  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden; /* ✅ prevent weird scrollbars */
-}
-
-/* Smooth parallax swipe-up animation */
-.loading-screen.animate-out {
-  transform: translateY(-100%);
 }
 
 /* Main content animation */
@@ -82,7 +74,8 @@ body {
   opacity: 1;
 }
 
-/* Hero Section - GSAP handles all animations */
+
+/* Hero Section */
 .hero-section {
   background: #000; /* Black background */
   /* GSAP will handle all opacity and transform animations */
