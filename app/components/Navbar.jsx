@@ -198,16 +198,16 @@ const Navbar = () => {
   // Render a simple version on server, full version on client
   if (!isClient) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[rgba(0,0,0,0.55)] backdrop-blur-sm py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-12">
             {/* Desktop Navigation - Left Side */}
-            <div className="hidden lg:flex items-center space-x-12 xl:space-x-16">
+            <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
               {navItems.slice(0, 3).map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer"
+                  className="nav-link text-black font-medium text-base tracking-wide transition-all duration-300 cursor-pointer"
                 >
                   {item.name}
                 </a>
@@ -219,25 +219,25 @@ const Navbar = () => {
               href="/"
               className="flex-shrink-0 cursor-pointer"
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 relative">
+              <div className="w-10 h-10 md:w-12 md:h-12 relative">
                 <Image
                   src="/Circular-logo.webp"
                   alt="Xylem Logo"
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 48px, 64px"
+                  sizes="(max-width: 768px) 40px, 48px"
                 />
               </div>
             </a>
 
             {/* Desktop Navigation - Right Side */}
-            <div className="hidden lg:flex items-center space-x-12 xl:space-x-16">
+            <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
               {navItems.slice(3).map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer"
+                  className="nav-link text-black font-medium text-base tracking-wide transition-all duration-300 cursor-pointer"
                 >
                   {item.name}
                 </a>
@@ -246,12 +246,12 @@ const Navbar = () => {
 
             {/* Mobile Hamburger Button - Only show on mobile screens */}
             <button
-              className="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 cursor-pointer hamburger-container"
+              className="lg:hidden flex flex-col justify-center items-center w-6 h-6 space-y-1 cursor-pointer hamburger-container"
               aria-label="Toggle mobile menu"
             >
-              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
-              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
-              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-5 h-0.5 bg-black transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-5 h-0.5 bg-black transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-5 h-0.5 bg-black transform transition-all duration-300"></span>
             </button>
           </div>
         </div>
@@ -268,15 +268,15 @@ const Navbar = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-12">
             {/* Desktop Navigation - Left Side - Hidden on mobile */}
-            <div className="hidden lg:flex items-center space-x-12 xl:space-x-16">
+            <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
               {navItems.slice(0, 3).map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
                   ref={el => navItemsRef.current[index] = el}
-                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer relative"
+                  className="nav-link text-black font-medium text-base tracking-wide transition-all duration-300 cursor-pointer relative"
                 >
                   {item.name}
                 </a>
@@ -289,26 +289,26 @@ const Navbar = () => {
               ref={logoRef}
               className="flex-shrink-0 cursor-pointer"
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 relative">
+              <div className="w-10 h-10 md:w-12 md:h-12 relative">
                 <Image
                   src="/Circular-logo.webp"
                   alt="Xylem Logo"
                   fill
                   className="object-contain"
                   priority
-                  sizes="(max-width: 768px) 48px, 64px"
+                  sizes="(max-width: 768px) 40px, 48px"
                 />
               </div>
             </a>
 
             {/* Desktop Navigation - Right Side - Hidden on mobile */}
-            <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
+            <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
               {navItems.slice(3).map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
                   ref={el => navItemsRef.current[index + 3] = el}
-                  className="nav-link text-white font-medium text-lg tracking-wide transition-all duration-300 cursor-pointer relative"
+                  className="nav-link text-black font-medium text-base tracking-wide transition-all duration-300 cursor-pointer relative"
                 >
                   {item.name}
                 </a>
@@ -322,9 +322,9 @@ const Navbar = () => {
               onClick={handleMobileToggle}
               aria-label="Toggle mobile menu"
             >
-              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
-              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
-              <span className="hamburger-line block w-6 h-0.5 bg-white transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-5 h-0.5 bg-black transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-5 h-0.5 bg-black transform transition-all duration-300"></span>
+              <span className="hamburger-line block w-5 h-0.5 bg-black transform transition-all duration-300"></span>
             </button>
           </div>
         </div>
@@ -349,7 +349,7 @@ const Navbar = () => {
         className="fixed top-0 right-0 h-full w-80 mobile-menu z-50 transform translate-x-full"
         style={{ 
           maxWidth: "85vw",
-          background: "rgba(0, 0, 0, 0.45)",
+          background: "rgba(255, 255, 255, 0.95)",
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)"
         }}
@@ -358,13 +358,13 @@ const Navbar = () => {
         <button
           ref={closeButtonRef}
           onClick={handleCloseClick}
-          className="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 close-button"
+          className="absolute top-4 left-4 w-8 h-8 rounded-full bg-black/10 backdrop-blur-sm border border-black/20 flex items-center justify-center text-black hover:bg-black/20 transition-all duration-300 close-button"
           aria-label="Close mobile menu"
           style={{ opacity: 0 }}
         >
           <svg
-            width="20"
-            height="20"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -377,27 +377,27 @@ const Navbar = () => {
           </svg>
         </button>
 
-        <div className="flex flex-col h-full pt-16 px-8">
+        <div className="flex flex-col h-full pt-12 px-6">
           {/* Mobile Logo */}
-          <div className="flex justify-center mb-6">
-            <div className="w-14 h-14 relative rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
+          <div className="flex justify-center mb-4">
+            <div className="w-10 h-10 relative rounded-full overflow-hidden bg-black/10 backdrop-blur-sm border border-black/20">
               <Image
                 src="/Circular-logo.webp"
                 alt="Xylem Logo"
                 fill
-                className="object-contain p-2"
-                sizes="56px"
+                className="object-contain p-1.5"
+                sizes="40px"
               />
             </div>
           </div>
 
           {/* Mobile Navigation Links */}
-          <nav className="flex flex-col space-y-3 flex-1 justify-center">
+          <nav className="flex flex-col space-y-2 flex-1 justify-center">
             {navItems.map((item, index) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="mobile-nav-item text-white text-lg font-medium py-2.5 px-4 rounded-lg hover:bg-[rgba(255,255,255,0.1)] hover:text-blue-400 transition-all duration-300 transform hover:translateX-2"
+                className="mobile-nav-item text-black text-base font-medium py-2 px-3 rounded-lg hover:bg-black/5 transition-all duration-300 transform hover:translateX-2"
                 onClick={handleMobileToggle}
               >
                 {item.name}
@@ -406,346 +406,11 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Footer */}
-          <div className="pb-6 text-center flex-shrink-0">
-            <p className="text-gray-400 text-sm">© 2024 Xylem</p>
+          <div className="pb-4 text-center flex-shrink-0">
+            <p className="text-gray-600 text-xs">© 2024 Xylem</p>
           </div>
         </div>
       </div>
-
-      {/* Enhanced CSS for improved animations and responsiveness */}
-      <style jsx>{`
-        /* Updated navbar glass styles with darker background */
-        .navbar-glass {
-          background: rgba(0, 0, 0, 0.55); /* Increased from 0.45 */
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 1rem 0;
-        }
-
-        .navbar-glass.scrolled {
-          background: rgba(0, 0, 0, 0.85); /* Increased from 0.8 */
-          backdrop-filter: blur(30px) saturate(200%);
-          -webkit-backdrop-filter: blur(30px) saturate(200%);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 0.5rem 0;
-        }
-
-        /* Navigation link enhanced hover effects */
-        .nav-link {
-          position: relative;
-          display: inline-block;
-          transform: translateZ(0);
-          will-change: transform, color;
-          backface-visibility: hidden;
-          perspective: 1000px;
-        }
-
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 4px;
-          bottom: -8px;
-          left: 50%;
-          background: linear-gradient(90deg, #87CEEB, #00BFFF, #ADD8E6);
-          background-size: 200% 100%;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          transform: translateX(-50%) scaleX(0);
-          border-radius: 4px;
-          box-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
-        }
-
-        .nav-link:hover::after {
-          width: 100%;
-          transform: translateX(-50%) scaleX(1);
-          background-position: -200% 0;
-        }
-
-        /* Mobile menu enhanced styles */
-        .mobile-menu {
-          border-left: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .mobile-nav-item {
-          position: relative;
-          overflow: hidden;
-          border-radius: 12px;
-          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          will-change: transform, background-color;
-        }
-
-        .mobile-nav-item::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, 
-            transparent, 
-            rgba(59, 130, 246, 0.1), 
-            rgba(139, 92, 246, 0.1), 
-            transparent
-          );
-          transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          z-index: 0;
-        }
-
-        .mobile-nav-item:hover::before {
-          left: 100%;
-        }
-
-        .mobile-nav-item:hover {
-          background: rgba(255, 255, 255, 0.05);
-          transform: translateX(8px) scale(1.02);
-          box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-        }
-
-        .mobile-nav-item:active {
-          transform: translateX(8px) scale(0.98);
-        }
-
-        /* Close button styles */
-        .close-button {
-          position: relative;
-          transform: translateZ(0);
-          will-change: transform, background-color;
-        }
-
-        .close-button::before {
-          content: '';
-          position: absolute;
-          top: -2px;
-          left: -2px;
-          right: -2px;
-          bottom: -2px;
-          background: linear-gradient(45deg, #ef4444, #f97316, #eab308, #ef4444);
-          background-size: 400% 400%;
-          border-radius: 50%;
-          opacity: 0;
-          z-index: -1;
-          animation: gradientShift 2s ease infinite;
-          transition: opacity 0.3s ease;
-        }
-
-        .close-button:hover::before {
-          opacity: 0.5;
-        }
-
-        .close-button:hover {
-          transform: scale(1.1);
-          background: rgba(255, 255, 255, 0.25);
-        }
-
-        .close-button:active {
-          transform: scale(0.95);
-        }
-
-        /* Hamburger menu enhanced animation */
-        .hamburger-container {
-          width: 32px;
-          height: 32px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          padding: 4px;
-          border-radius: 6px;
-          transition: background-color 0.3s ease;
-        }
-
-        .hamburger-container:hover {
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        .hamburger-line {
-          display: block;
-          width: 24px;
-          height: 2px;
-          background: linear-gradient(90deg, #ffffff, #e2e8f0);
-          border-radius: 2px;
-          transform-origin: center;
-          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          will-change: transform, opacity;
-          margin: 2px 0;
-        }
-
-        /* Mobile menu overlay - FIXED: More subtle overlay */
-        .mobile-overlay {
-          transition: all 0.3s ease;
-        }
-
-        /* Responsive enhancements */
-        @media (max-width: 1024px) {
-          /* Hamburger is visible below lg breakpoint (1024px) */
-          .hamburger-container {
-            display: flex;
-          }
-        }
-
-        @media (min-width: 1025px) {
-          /* Hide hamburger on desktop */
-          .hamburger-container {
-            display: none !important;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .navbar-glass {
-            padding: 0.75rem 0;
-          }
-          
-          .mobile-menu {
-            width: min(320px, 85vw);
-          }
-          
-          .mobile-nav-item {
-            font-size: 1rem;
-            padding: 0.625rem 1rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .navbar-glass {
-            padding: 0.5rem 0;
-          }
-          
-          .mobile-menu {
-            width: min(280px, 90vw);
-          }
-          
-          .mobile-nav-item {
-            font-size: 0.875rem;
-            padding: 0.5rem 0.75rem;
-          }
-        }
-
-        /* Additional mobile menu spacing adjustments */
-        @media (max-height: 700px) {
-          .mobile-menu .flex.flex-col.h-full {
-            padding-top: 12px;
-          }
-          
-          .mobile-nav-item {
-            padding: 0.5rem 0.75rem;
-            font-size: 1rem;
-          }
-        }
-
-        @media (max-height: 600px) {
-          .mobile-menu .flex.flex-col.h-full {
-            padding-top: 8px;
-          }
-          
-          .mobile-nav-item {
-            padding: 0.375rem 0.75rem;
-            font-size: 0.875rem;
-          }
-        }
-
-        /* Performance optimizations */
-        .navbar-glass,
-        .mobile-menu,
-        .nav-link,
-        .close-button {
-          transform: translateZ(0);
-          backface-visibility: hidden;
-          perspective: 1000px;
-        }
-
-        /* Accessibility improvements */
-        @media (prefers-reduced-motion: reduce) {
-          .nav-link::after,
-          .mobile-nav-item::before,
-          .hamburger-line,
-          .close-button::before {
-            transition: none;
-            animation: none;
-          }
-          
-          .mobile-nav-item:hover,
-          .close-button:hover {
-            transform: none;
-          }
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-          .navbar-glass {
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 2px solid #ffffff;
-          }
-          
-          .nav-link::after {
-            background: #ffffff;
-            height: 3px;
-          }
-          
-          .mobile-nav-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid #ffffff;
-          }
-
-          .close-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid #ffffff;
-          }
-        }
-
-        /* Focus management for accessibility */
-        .nav-link:focus,
-        .mobile-nav-item:focus,
-        .hamburger-container:focus,
-        .close-button:focus {
-          outline: 2px solid #3b82f6;
-          outline-offset: 2px;
-          border-radius: 4px;
-        }
-
-        .nav-link:focus:not(:focus-visible),
-        .mobile-nav-item:focus:not(:focus-visible),
-        .hamburger-container:focus:not(:focus-visible),
-        .close-button:focus:not(:focus-visible) {
-          outline: none;
-        }
-
-        /* Smooth scroll behavior */
-        html {
-          scroll-behavior: smooth;
-        }
-
-        /* Prevent text selection on navigation elements */
-        .nav-link,
-        .mobile-nav-item,
-        .hamburger-container,
-        .close-button {
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-
-        /* Custom scrollbar for mobile menu if content overflows */
-        .mobile-menu::-webkit-scrollbar {
-          width: 6px;
-        }
-
-        .mobile-menu::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 3px;
-        }
-
-        .mobile-menu::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.3);
-          border-radius: 3px;
-        }
-
-        .mobile-menu::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.5);
-        }
-      `}</style>
     </>
   );
 };
