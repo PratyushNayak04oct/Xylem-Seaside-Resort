@@ -64,29 +64,28 @@ const Navbar = () => {
     return () => ctx.revert();
   }, [isClient]);
 
-  // Mobile menu animations
+  // Mobile menu animations - FIXED: No black screen
   const toggleMobileMenu = () => {
     if (!isClient) return;
     
     if (!isMobileMenuOpen) {
       setIsMobileMenuOpen(true);
       
-      // Animate menu in
+      // Start with menu slide-in first, then overlay fade-in
       gsap.timeline()
-        .to(overlayRef.current, {
-          opacity: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        })
         .fromTo(mobileMenuRef.current,
           { x: "100%" },
           { 
             x: "0%",
-            duration: 0.5,
+            duration: 0.4,
             ease: "power3.out"
-          },
-          "-=0.1"
+          }
         )
+        .to(overlayRef.current, {
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        }, "-=0.2") // Start overlay fade slightly before menu finishes
         .fromTo(closeButtonRef.current,
           { scale: 0, rotation: -90, opacity: 0 },
           {
@@ -104,7 +103,7 @@ const Navbar = () => {
             x: 0,
             opacity: 1,
             duration: 0.4,
-            stagger: 0.1,
+            stagger: 0.08,
             ease: "power2.out"
           },
           "-=0.3"
@@ -131,20 +130,20 @@ const Navbar = () => {
           },
           "-=0.1"
         )
+        .to(overlayRef.current, {
+          opacity: 0,
+          duration: 0.2,
+          ease: "power2.in"
+        }, "-=0.2")
         .to(mobileMenuRef.current,
           { 
             x: "100%",
             duration: 0.4,
-            ease: "power3.in"
+            ease: "power3.in",
+            onComplete: () => setIsMobileMenuOpen(false)
           },
-          "-=0.1"
-        )
-        .to(overlayRef.current, {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => setIsMobileMenuOpen(false)
-        }, "-=0.2");
+          "-=0.3"
+        );
     }
   };
 
@@ -331,12 +330,15 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Now with transparent background initially */}
       {isMobileMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm mobile-overlay"
-          style={{ opacity: 0 }}
+          className="fixed inset-0 z-40 mobile-overlay"
+          style={{ 
+            background: "transparent", // Start transparent
+            backdropFilter: "blur(0px)" // Start with no blur
+          }}
           onClick={handleMobileToggle}
         />
       )}
@@ -375,27 +377,27 @@ const Navbar = () => {
           </svg>
         </button>
 
-        <div className="flex flex-col h-full pt-20 px-8">
+        <div className="flex flex-col h-full pt-16 px-8">
           {/* Mobile Logo */}
-          <div className="flex justify-center mb-12">
-            <div className="w-16 h-16 relative rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
+          <div className="flex justify-center mb-6">
+            <div className="w-14 h-14 relative rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20">
               <Image
                 src="/Circular-logo.webp"
                 alt="Xylem Logo"
                 fill
                 className="object-contain p-2"
-                sizes="64px"
+                sizes="56px"
               />
             </div>
           </div>
 
           {/* Mobile Navigation Links */}
-          <nav className="flex flex-col space-y-6">
+          <nav className="flex flex-col space-y-3 flex-1 justify-center">
             {navItems.map((item, index) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="mobile-nav-item text-white text-xl font-medium py-3 px-4 rounded-lg hover:bg-[rgba(255,255,255,0.1)] hover:text-blue-400 transition-all duration-300 transform hover:translateX-2"
+                className="mobile-nav-item text-white text-lg font-medium py-2.5 px-4 rounded-lg hover:bg-[rgba(255,255,255,0.1)] hover:text-blue-400 transition-all duration-300 transform hover:translateX-2"
                 onClick={handleMobileToggle}
               >
                 {item.name}
@@ -404,7 +406,7 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Footer */}
-          <div className="mt-auto mb-8 text-center">
+          <div className="pb-6 text-center flex-shrink-0">
             <p className="text-gray-400 text-sm">© 2024 Xylem</p>
           </div>
         </div>
@@ -571,22 +573,9 @@ const Navbar = () => {
           margin: 2px 0;
         }
 
-        /* Mobile menu overlay */
+        /* Mobile menu overlay - FIXED: More subtle overlay */
         .mobile-overlay {
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          animation: fadeInOverlay 0.3s ease;
-        }
-
-        @keyframes fadeInOverlay {
-          from { 
-            opacity: 0;
-            backdrop-filter: blur(0px);
-          }
-          to { 
-            opacity: 1;
-            backdrop-filter: blur(8px);
-          }
+          transition: all 0.3s ease;
         }
 
         /* Responsive enhancements */
@@ -614,8 +603,8 @@ const Navbar = () => {
           }
           
           .mobile-nav-item {
-            font-size: 1.125rem;
-            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            padding: 0.625rem 1rem;
           }
         }
 
@@ -629,8 +618,31 @@ const Navbar = () => {
           }
           
           .mobile-nav-item {
+            font-size: 0.875rem;
+            padding: 0.5rem 0.75rem;
+          }
+        }
+
+        /* Additional mobile menu spacing adjustments */
+        @media (max-height: 700px) {
+          .mobile-menu .flex.flex-col.h-full {
+            padding-top: 12px;
+          }
+          
+          .mobile-nav-item {
+            padding: 0.5rem 0.75rem;
             font-size: 1rem;
-            padding: 0.75rem 0.875rem;
+          }
+        }
+
+        @media (max-height: 600px) {
+          .mobile-menu .flex.flex-col.h-full {
+            padding-top: 8px;
+          }
+          
+          .mobile-nav-item {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
           }
         }
 
