@@ -27,9 +27,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0; /* ✅ remove padding that may push logo */
+  padding: 0; 
   will-change: transform, opacity;
-  overflow: visible; /* ✅ make sure logo is not cropped */
+  overflow: visible; 
 }
 
 .animated-logo-svg {
@@ -48,13 +48,13 @@ body {
   right: 0;
   bottom: 0;
   z-index: 9999;
-  display: flex; /* ✅ make container flex */
-  align-items: center; /* ✅ vertically center */
-  justify-content: center; /* ✅ horizontally center */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  overflow: hidden; /* ✅ prevent weird scrollbars */
+  overflow: hidden; 
 }
 
 /* Main content animation */
