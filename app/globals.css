@@ -1,5 +1,110 @@
 @import "tailwindcss";
 
+/* CSS Variables for Light Theme */
+:root {
+  --background: hsl(0, 0%, 98%);
+  --foreground: hsl(210, 40%, 8%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(210, 40%, 8%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 40%, 8%);
+  --primary: hsl(173, 58%, 39%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(210, 40%, 8%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(210, 40%, 45%);
+  --accent: hsl(197, 37%, 24%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(210, 40%, 90%);
+  --input: hsl(210, 40%, 90%);
+  --ring: hsl(173, 58%, 39%);
+  --radius: 0.5rem;
+}
+
+/* CSS Variables for Dark Theme */
+.dark {
+  --background: hsl(210, 40%, 8%);
+  --foreground: hsl(0, 0%, 98%);
+  --card: hsl(210, 40%, 10%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --popover: hsl(210, 40%, 10%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --primary: hsl(173, 58%, 39%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(210, 40%, 15%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --muted: hsl(210, 40%, 15%);
+  --muted-foreground: hsl(210, 40%, 65%);
+  --accent: hsl(197, 37%, 24%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(210, 40%, 20%);
+  --input: hsl(210, 40%, 20%);
+  --ring: hsl(173, 58%, 39%);
+}
+
+/* Global Styles */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: linear-gradient(135deg, #2C6E6B 0%, #1a4a47 100%);
+}
+
+/* Font Classes */
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Smooth Transitions */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
 /* Performance optimizations */
 html {
   scroll-behavior: smooth;
