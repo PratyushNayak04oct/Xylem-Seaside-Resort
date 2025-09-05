@@ -117,7 +117,7 @@ const AmenitiesSection = () => {
             id="amenities-title"
             className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
           >
-            World-Class <span className="text-primary">Amenities</span>
+            World-Class <span className="text-teal-600">Amenities</span>
           </h2>
           <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Indulge in our comprehensive range of luxury amenities designed to enhance 
@@ -130,11 +130,11 @@ const AmenitiesSection = () => {
           {amenities.map((amenity, index) => (
             <div 
               key={index}
-              className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary/20 hover:-translate-y-2"
+              className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-teal-600/20 hover:-translate-y-2 transform will-change-transform"
             >
               {/* Icon */}
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-                <amenity.icon className="w-8 h-8 text-primary" />
+              <div className="w-16 h-16 bg-teal-600/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-teal-600/20 transition-colors duration-300">
+                <amenity.icon className="w-8 h-8 text-teal-600" />
               </div>
 
               {/* Content */}
@@ -150,14 +150,14 @@ const AmenitiesSection = () => {
 
         {/* CTA Section */}
         <div className="text-center mt-16">
-          <div className="bg-primary/5 rounded-2xl p-8 border border-primary/10">
+          <div className="bg-teal-600/5 rounded-2xl p-8 border border-teal-600/10">
             <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-4">
               Experience Ultimate Luxury
             </h3>
             <p className="font-inter text-gray-600 mb-6 max-w-xl mx-auto">
               Discover all our premium amenities and services designed to make your stay extraordinary.
             </p>
-            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+            <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:-translate-y-0.5 will-change-transform">
               Explore All Amenities
             </button>
           </div>

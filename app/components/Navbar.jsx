@@ -79,29 +79,38 @@ const Navbar = () => {
   return (
     <nav 
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/20 shadow-lg"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/20 shadow-lg will-change-transform"
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left Navigation Items */}
-          <div ref={leftItemsRef} className="hidden lg:flex items-center space-x-8">
+          <div ref={leftItemsRef} className="hidden lg:flex items-center space-x-10">
             {leftItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`relative font-inter font-medium text-sm tracking-wide transition-all duration-300 hover:text-primary group ${
+                className={`relative font-inter font-medium text-sm tracking-wide transition-all duration-300 hover:text-teal-600 group transform will-change-transform translate-z-0 backface-hidden select-none ${
                   pathname === item.href 
-                    ? 'text-primary' 
-                    : 'text-gray-700 hover:text-primary'
+                    ? 'text-teal-600' 
+                    : 'text-gray-700 hover:text-teal-600'
                 }`}
                 aria-current={pathname === item.href ? 'page' : undefined}
+                style={{ perspective: '1000px' }}
               >
-                {item.name}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${
-                  pathname === item.href ? 'w-full' : ''
-                }`}></span>
+                <span className="relative inline-block">
+                  {item.name}
+                  <span 
+                    className={`absolute -bottom-1.5 left-1/2 h-0.5 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-400 ease-cubic-bezier-custom transform -translate-x-1/2 scale-x-0 rounded-full shadow-sm ${
+                      pathname === item.href ? 'w-full scale-x-100' : 'w-0 group-hover:w-full group-hover:scale-x-100'
+                    }`}
+                    style={{ 
+                      backgroundSize: '200% 100%',
+                      animation: pathname === item.href || undefined ? 'gradientShift 2s ease infinite' : undefined
+                    }}
+                  />
+                </span>
               </Link>
             ))}
           </div>
@@ -109,7 +118,7 @@ const Navbar = () => {
           {/* Logo */}
           <div ref={logoRef} className="flex-shrink-0">
             <Link href="/" className="flex items-center" aria-label="XYLEM SEASIDE RESORT Home">
-              <div className="w-16 h-16 md:w-20 md:h-20">
+              <div className="w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] transition-all duration-300">
                 <AnimatedLogo 
                   className="w-full h-full" 
                   autoPlay={false}
@@ -119,22 +128,31 @@ const Navbar = () => {
           </div>
 
           {/* Right Navigation Items */}
-          <div ref={rightItemsRef} className="hidden lg:flex items-center space-x-8">
+          <div ref={rightItemsRef} className="hidden lg:flex items-center space-x-10">
             {rightItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`relative font-inter font-medium text-sm tracking-wide transition-all duration-300 hover:text-primary group ${
+                className={`relative font-inter font-medium text-sm tracking-wide transition-all duration-300 hover:text-teal-600 group transform will-change-transform translate-z-0 backface-hidden select-none ${
                   pathname === item.href 
-                    ? 'text-primary' 
-                    : 'text-gray-700 hover:text-primary'
+                    ? 'text-teal-600' 
+                    : 'text-gray-700 hover:text-teal-600'
                 }`}
                 aria-current={pathname === item.href ? 'page' : undefined}
+                style={{ perspective: '1000px' }}
               >
-                {item.name}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${
-                  pathname === item.href ? 'w-full' : ''
-                }`}></span>
+                <span className="relative inline-block">
+                  {item.name}
+                  <span 
+                    className={`absolute -bottom-1.5 left-1/2 h-0.5 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-400 ease-cubic-bezier-custom transform -translate-x-1/2 scale-x-0 rounded-full shadow-sm ${
+                      pathname === item.href ? 'w-full scale-x-100' : 'w-0 group-hover:w-full group-hover:scale-x-100'
+                    }`}
+                    style={{ 
+                      backgroundSize: '200% 100%',
+                      animation: pathname === item.href || undefined ? 'gradientShift 2s ease infinite' : undefined
+                    }}
+                  />
+                </span>
               </Link>
             ))}
           </div>
@@ -143,16 +161,19 @@ const Navbar = () => {
           <div className="lg:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors duration-200"
+              className="relative inline-flex items-center justify-center p-3 rounded-lg text-gray-700 hover:text-teal-600 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-600 transition-all duration-300 transform will-change-transform translate-z-0 backface-hidden select-none"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
               aria-label="Toggle navigation menu"
+              style={{ perspective: '1000px' }}
             >
-              {isMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
-              )}
+              <div className="w-6 h-6 flex flex-col justify-center items-center">
+                {isMenuOpen ? (
+                  <X className="block h-6 w-6 transition-transform duration-300 transform rotate-90" aria-hidden="true" />
+                ) : (
+                  <Menu className="block h-6 w-6 transition-transform duration-300" aria-hidden="true" />
+                )}
+              </div>
             </button>
           </div>
         </div>
@@ -165,19 +186,29 @@ const Navbar = () => {
             className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200/20"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
+              {navItems.map((item, index) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                  className={`relative block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 transform will-change-transform translate-z-0 backface-hidden select-none overflow-hidden ${
                     pathname === item.href
-                      ? 'text-primary bg-primary/10'
-                      : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                      ? 'text-teal-600 bg-teal-600/10 translate-x-1.5 scale-102'
+                      : 'text-gray-700 hover:text-teal-600 hover:bg-black/5 hover:translate-x-1.5 hover:scale-102'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                   aria-current={pathname === item.href ? 'page' : undefined}
+                  style={{ 
+                    perspective: '1000px',
+                    animationDelay: `${index * 0.1}s`
+                  }}
                 >
-                  {item.name}
+                  <span 
+                    className = "absolute top-0 left-0 w-0 h-full bg-gradient-to-r from-transparent via-amber-400/10 via-red-500/10 to-transparent transition-all duration-600 ease-cubic-bezier-custom -translate-x-full"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), rgba(239, 68, 68, 0.1), transparent)'
+                    }}
+                  />
+                  <span className="relative z-10">{item.name}</span>
                 </Link>
               ))}
             </div>
