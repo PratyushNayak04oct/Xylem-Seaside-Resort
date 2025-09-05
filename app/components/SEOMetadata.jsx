@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 const SEOMetadata = ({ 
-  title = "Your App Name - Welcome",
+  title = "XYLEM Seaside Resort - Welcome",
   description = "Discover amazing features and experiences designed just for you. Join thousands of users who trust our platform every day.",
   keywords = "platform, features, user experience, web application",
   ogImage = "/og-image.jpg",

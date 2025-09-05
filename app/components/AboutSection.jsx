@@ -111,8 +111,9 @@ const AboutSection = () => {
     <section 
       id="about-section"
       ref={sectionRef}
-      className="py-20 lg:py-32 bg-gradient-to-b from-white to-gray-50"
+      className="py-20 lg:py-32 bg-gradient-to-b from-white to-gray-50 will-change-transform transform translate-z-0 backface-hidden"
       aria-labelledby="about-title"
+      style={{ perspective: '1000px' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -125,7 +126,7 @@ const AboutSection = () => {
                 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight"
               >
                 Where Luxury Meets
-                <span className="text-primary block">Tranquility</span>
+                <span className="text-teal-600 block">Tranquility</span>
               </h2>
               
               <div className="space-y-6 text-gray-600 font-inter text-lg leading-relaxed">
@@ -151,8 +152,15 @@ const AboutSection = () => {
             {/* Stats */}
             <div ref={statsRef} className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-gray-200">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="font-playfair text-2xl sm:text-3xl font-bold text-primary mb-2">
+                <div 
+                  key={index} 
+                  className="text-center opacity-0 transform translate-y-8 duration-600 ease-out"
+                  style={{ 
+                    animationDelay: `${index * 0.1}s`,
+                    animationFillMode: 'both'
+                  }}
+                >
+                  <div className="font-playfair text-2xl sm:text-3xl font-bold text-teal-600 mb-2">
                     {stat.number}
                   </div>
                   <div className="font-inter text-sm text-gray-600 uppercase tracking-wide">
@@ -180,8 +188,8 @@ const AboutSection = () => {
             {/* Floating card */}
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl border border-gray-100">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 bg-teal-600/10 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>

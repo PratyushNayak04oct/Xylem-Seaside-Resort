@@ -1,16 +1,33 @@
 import './globals.css';
 
+export const metadata = {
+  title: 'XYLEM Seaside Resort',
+  description: 'Discover luxury and tranquility at XYLEM Seaside Resort. Experience pristine beaches, world-class amenities, and exceptional hospitality in our oceanfront paradise. Book your perfect getaway with stunning sea views, fine dining, and relaxation.',
+  keywords: 'seaside resort, luxury hotel, beach resort, oceanfront accommodation, vacation resort, sea view rooms, beach holiday, luxury travel',
+  authors: [{ name: 'XYLEM Seaside Resort' }],
+  creator: 'XYLEM Seaside Resort',
+  publisher: 'XYLEM Seaside Resort',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'XYLEM Seaside Resort',
+    description: 'Discover luxury and tranquility at XYLEM Seaside Resort. Experience pristine beaches, world-class amenities, and exceptional hospitality in our oceanfront paradise.',
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'XYLEM Seaside Resort',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'XYLEM Seaside Resort',
+    description: 'Discover luxury and tranquility at XYLEM Seaside Resort. Experience pristine beaches and world-class amenities.',
+    creator: '@xylemresort',
+  },
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: '#0066cc',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
-          rel="stylesheet" 
-        />
-      </head>
       <body>
         {children}
       </body>

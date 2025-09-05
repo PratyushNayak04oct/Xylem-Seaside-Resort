@@ -74,7 +74,7 @@ const HeroSection = () => {
   return (
     <section 
       ref={heroRef}
-      className="relative h-screen overflow-hidden flex items-center justify-center"
+      className="relative h-screen overflow-hidden flex items-center justify-center bg-black"
       role="banner"
       aria-label="Hero section"
     >
@@ -82,13 +82,14 @@ const HeroSection = () => {
       <div className="absolute inset-0 w-full h-full">
         <video
           ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover scale-110"
+          className="absolute inset-0 w-full h-full object-cover scale-110 will-change-transform transform translate-z-0 backface-hidden"
           autoPlay
           muted
           loop
           playsInline
           poster="/hero-poster.jpg"
           aria-hidden="true"
+          style={{ perspective: '1000px' }}
         >
           <source src="/hero-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
@@ -98,7 +99,7 @@ const HeroSection = () => {
       {/* Overlay */}
       <div 
         ref={overlayRef}
-        className="absolute inset-0 bg-hero-gradient"
+        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"
         aria-hidden="true"
       />
 
@@ -106,26 +107,26 @@ const HeroSection = () => {
       <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <h1 
           ref={titleRef}
-          className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+          className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight will-change-transform"
         >
           XYLEM SEASIDE
           <br />
-          <span className="text-resort-300">RESORT</span>
+          <span className="text-teal-300">RESORT</span>
         </h1>
         
         <p 
           ref={subtitleRef}
-          className="font-inter text-lg sm:text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed"
+          className="font-inter text-lg sm:text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed will-change-transform"
         >
           Where luxury meets the endless horizon. Experience unparalleled comfort 
           and breathtaking ocean views at our exclusive beachfront paradise.
         </p>
         
-        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center will-change-transform">
+          <button className="relative overflow-hidden bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:-translate-y-0.5 will-change-transform translate-z-0">
             Book Your Stay
           </button>
-          <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+          <button className="relative overflow-hidden border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:-translate-y-0.5 will-change-transform translate-z-0">
             Explore Resort
           </button>
         </div>
@@ -134,7 +135,7 @@ const HeroSection = () => {
       {/* Scroll Indicator */}
       <div 
         ref={scrollIndicatorRef}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer will-change-transform"
         onClick={scrollToNext}
         role="button"
         tabIndex={0}
@@ -147,7 +148,7 @@ const HeroSection = () => {
       >
         <div className="flex flex-col items-center text-white/80 hover:text-white transition-colors duration-300">
           <span className="font-inter text-sm mb-2 tracking-wide">Discover More</span>
-          <ChevronDown className="w-6 h-6 animate-bounce" />
+          <ChevronDown className="w-6 h-6" />
         </div>
       </div>
     </section>
