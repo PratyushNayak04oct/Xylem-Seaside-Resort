@@ -1,60 +1,9 @@
 @import "tailwindcss";
 
-/* CSS Variables for Light Theme */
-:root {
-  --background: hsl(0, 0%, 98%);
-  --foreground: hsl(210, 40%, 8%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(210, 40%, 8%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(210, 40%, 8%);
-  --primary: hsl(173, 58%, 39%);
-  --primary-foreground: hsl(0, 0%, 98%);
-  --secondary: hsl(210, 40%, 96%);
-  --secondary-foreground: hsl(210, 40%, 8%);
-  --muted: hsl(210, 40%, 96%);
-  --muted-foreground: hsl(210, 40%, 45%);
-  --accent: hsl(197, 37%, 24%);
-  --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(210, 40%, 90%);
-  --input: hsl(210, 40%, 90%);
-  --ring: hsl(173, 58%, 39%);
-  --radius: 0.5rem;
-  
-  /* Font family variables - fallback to web fonts */
-  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  --font-playfair: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
-}
-
-/* CSS Variables for Dark Theme */
-.dark {
-  --background: hsl(210, 40%, 8%);
-  --foreground: hsl(0, 0%, 98%);
-  --card: hsl(210, 40%, 10%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --popover: hsl(210, 40%, 10%);
-  --popover-foreground: hsl(0, 0%, 98%);
-  --primary: hsl(173, 58%, 39%);
-  --primary-foreground: hsl(0, 0%, 98%);
-  --secondary: hsl(210, 40%, 15%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --muted: hsl(210, 40%, 15%);
-  --muted-foreground: hsl(210, 40%, 65%);
-  --accent: hsl(197, 37%, 24%);
-  --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(210, 40%, 20%);
-  --input: hsl(210, 40%, 20%);
-  --ring: hsl(173, 58%, 39%);
-}
-
 /* Global Styles */
 * {
-  border-color: var(--border);
   box-sizing: border-box;
+  border-color: #e5e7eb; /* gray-300 equivalent */
 }
 
 html {
@@ -66,25 +15,24 @@ html {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: #ffffff;
+  color: #1f2937; /* gray-800 equivalent */
   font-feature-settings: "rlig" 1, "calt" 1, 'kern' 1;
-  font-family: var(--font-inter);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   margin: 0;
   padding: 0;
   text-rendering: optimizeLegibility;
-  background: #000; /* Ensure black background to prevent white flash */
   height: 100%;
   overflow-x: hidden;
 }
 
 /* Font Classes */
 .font-playfair {
-  font-family: var(--font-playfair);
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
 }
 
 .font-inter {
-  font-family: var(--font-inter);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
 /* Custom Scrollbar */
@@ -94,28 +42,28 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--muted);
+  background: #f3f4f6; /* gray-100 equivalent */
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: #14b8a6; /* teal-500 equivalent */
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: #0f766e; /* teal-700 equivalent */
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--muted);
+  background: #f3f4f6; /* gray-100 equivalent */
 }
 
 /* Firefox Scrollbar */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--muted);
+  scrollbar-color: #14b8a6 #f3f4f6; /* teal-500 and gray-100 */
 }
 
 /* Smooth Transitions - EXCLUDING animation elements */
@@ -137,7 +85,6 @@ html {
   padding: 0; 
   will-change: transform, opacity;
   overflow: visible;
-  /* Remove all transitions for GSAP control */
   transition: none !important;
 }
 
@@ -147,12 +94,10 @@ html {
   display: block;
   max-width: 100%;
   overflow: visible;
-  /* Remove all transitions for GSAP control */
   transition: none !important;
 }
 
 .animated-logo-svg * {
-  /* Remove all transitions from SVG elements for GSAP control */
   transition: none !important;
 }
 
@@ -171,13 +116,11 @@ html {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
-  background: #000;
-  /* Remove transitions for GSAP control */
+  background: #000000;
   transition: none !important;
 }
 
 .loading-screen * {
-  /* Remove all transitions from loading screen children for GSAP control */
   transition: none !important;
 }
 
@@ -185,10 +128,9 @@ html {
 .main-content {
   position: relative;
   z-index: 1;
-  background: #000; /* Black background to prevent white flash */
+  background: #ffffff;
   opacity: 1;
   will-change: opacity;
-  /* Keep only opacity transition for fade effect */
   transition: opacity 0.6s ease-in-out;
 }
 
@@ -220,7 +162,7 @@ html {
   }
 }
 
-/* Reduce motion for accessibility - GSAP animations will be disabled via JavaScript */
+/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -254,6 +196,97 @@ html {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+/* Card and Section Styles - Direct replacements for CSS variables */
+.card-bg {
+  background-color: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+}
+
+.card-bg-dark {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #374151;
+}
+
+.primary-bg {
+  background-color: #14b8a6; /* teal-500 */
+  color: #ffffff;
+}
+
+.secondary-bg {
+  background-color: #f3f4f6; /* gray-100 */
+  color: #1f2937; /* gray-800 */
+}
+
+.accent-bg {
+  background-color: #0f172a; /* slate-900 */
+  color: #f8fafc; /* slate-50 */
+}
+
+.muted-bg {
+  background-color: #f9fafb; /* gray-50 */
+  color: #6b7280; /* gray-500 */
+}
+
+/* Input and Form Styles */
+.form-input {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db; /* gray-300 */
+  color: #1f2937;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #14b8a6; /* teal-500 */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+.form-input-dark {
+  background-color: #374151; /* gray-700 */
+  border: 1px solid #4b5563; /* gray-600 */
+  color: #f9fafb; /* gray-50 */
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #14b8a6; /* teal-500 */
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0d9488; /* teal-600 */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #14b8a6; /* teal-500 */
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #14b8a6;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: #14b8a6;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
 }
 
 /* Responsive adjustments for all devices */
@@ -341,6 +374,7 @@ html {
   }
 }
 
+/* Animations */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
