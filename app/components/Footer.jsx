@@ -104,7 +104,7 @@ const Footer = () => {
       <button
         ref={backToTopRef}
         onClick={scrollToTop}
-        className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900"
         aria-label="Back to top"
       >
         <ArrowUp className="w-6 h-6 text-white" />
@@ -156,7 +156,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="font-inter text-gray-300 hover:text-primary transition-colors duration-300"
+                    className="font-inter text-gray-300 hover:text-primary transition-colors duration-300 focus:outline-none focus:text-primary focus:underline"
                   >
                     {link.name}
                   </Link>
@@ -173,7 +173,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="font-inter text-gray-300 hover:text-primary transition-colors duration-300"
+                    className="font-inter text-gray-300 hover:text-primary transition-colors duration-300 focus:outline-none focus:text-primary focus:underline"
                   >
                     {link.name}
                   </Link>
@@ -190,7 +190,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="font-inter text-gray-300 hover:text-primary transition-colors duration-300"
+                    className="font-inter text-gray-300 hover:text-primary transition-colors duration-300 focus:outline-none focus:text-primary focus:underline"
                   >
                     {link.name}
                   </Link>
@@ -209,7 +209,7 @@ const Footer = () => {
                 <a
                   key={social.label}
                   href={social.href}
-                  className="w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />

@@ -121,7 +121,7 @@ const RoomsPreview = () => {
           {rooms.map((room) => (
             <div 
               key={room.id}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary/20"
+              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary/20 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
@@ -158,7 +158,7 @@ const RoomsPreview = () => {
                 </div>
 
                 {/* CTA */}
-                <button className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-inter font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
+                <button className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-inter font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
                   <span>Book Now</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -171,10 +171,10 @@ const RoomsPreview = () => {
         <div className="text-center">
           <Link 
             href="/rooms"
-            className="inline-flex items-center space-x-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+            className="inline-flex items-center space-x-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 group"
           >
-            <span>View All Rooms</span>
-            <ArrowRight className="w-5 h-5" />
+            <span className="transition-colors duration-300 group-hover:text-white">View All Rooms</span>
+            <ArrowRight className="w-5 h-5 transition-colors duration-300 group-hover:text-white" />
           </Link>
         </div>
       </div>

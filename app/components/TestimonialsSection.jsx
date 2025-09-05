@@ -157,7 +157,7 @@ const TestimonialsSection = () => {
           <div className="flex justify-center items-center space-x-4 mt-8">
             <button
               onClick={prevTestimonial}
-              className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-300 hover:scale-110"
+              className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -169,7 +169,7 @@ const TestimonialsSection = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                     index === currentTestimonial 
                       ? 'bg-primary scale-125' 
                       : 'bg-gray-300 hover:bg-gray-400'
@@ -181,7 +181,7 @@ const TestimonialsSection = () => {
 
             <button
               onClick={nextTestimonial}
-              className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-300 hover:scale-110"
+              className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-6 h-6" />
