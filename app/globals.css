@@ -54,13 +54,7 @@
 /* Global Styles */
 * {
   border-color: var(--border);
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-feature-settings: "rlig" 1, "calt" 1;
-  font-family: var(--font-inter);
+  box-sizing: border-box;
 }
 
 html {
@@ -68,14 +62,20 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "rlig" 1, "calt" 1, 'kern' 1;
+  font-family: var(--font-inter);
   margin: 0;
   padding: 0;
-  font-feature-settings: 'kern' 1;
   text-rendering: optimizeLegibility;
   background: #000; /* Ensure black background to prevent white flash */
+  height: 100%;
+  overflow-x: hidden;
 }
 
 /* Font Classes */
@@ -113,14 +113,14 @@ body {
 }
 
 /* Firefox Scrollbar */
-* {
+html {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) var(--muted);
 }
 
-/* Smooth Transitions */
-* {
-  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+/* Smooth Transitions - EXCLUDING animation elements */
+*:not(.loading-screen):not(.loading-screen *):not(.animated-logo-container):not(.animated-logo-container *):not(.main-content) {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Animated Logo Styles */
@@ -136,7 +136,9 @@ body {
   justify-content: center;
   padding: 0; 
   will-change: transform, opacity;
-  overflow: visible; 
+  overflow: visible;
+  /* Remove all transitions for GSAP control */
+  transition: none !important;
 }
 
 .animated-logo-svg {
@@ -144,7 +146,14 @@ body {
   height: auto;
   display: block;
   max-width: 100%;
-  overflow: visible ; 
+  overflow: visible;
+  /* Remove all transitions for GSAP control */
+  transition: none !important;
+}
+
+.animated-logo-svg * {
+  /* Remove all transitions from SVG elements for GSAP control */
+  transition: none !important;
 }
 
 /* Loading Screen Styles */
@@ -161,7 +170,15 @@ body {
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  overflow: hidden; 
+  overflow: hidden;
+  background: #000;
+  /* Remove transitions for GSAP control */
+  transition: none !important;
+}
+
+.loading-screen * {
+  /* Remove all transitions from loading screen children for GSAP control */
+  transition: none !important;
 }
 
 /* Main content animation */
@@ -169,8 +186,10 @@ body {
   position: relative;
   z-index: 1;
   background: #000; /* Black background to prevent white flash */
-  transition: opacity 0.6s ease-in-out;
+  opacity: 1;
   will-change: opacity;
+  /* Keep only opacity transition for fade effect */
+  transition: opacity 0.6s ease-in-out;
 }
 
 .content-hidden {
@@ -212,14 +231,29 @@ body {
     scroll-behavior: auto !important;
   }
   
-  .loading-screen {
-    transition: none;
+  .loading-screen,
+  .animated-logo-container,
+  .animated-logo-svg,
+  .loading-screen *,
+  .animated-logo-container *,
+  .animated-logo-svg * {
+    transition: none !important;
+    animation: none !important;
   }
 }
 
 /* Focus management */
 .loading-screen:focus-within {
   outline: none;
+}
+
+/* Performance optimizations for animations */
+.loading-screen,
+.main-content,
+.animated-logo-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Responsive adjustments for all devices */
@@ -258,10 +292,6 @@ body {
     max-width: 160px;
     width: 65%;
   }
-  
-  .loading-screen.animate-out {
-    transition-duration: 0.6s;
-  }
 }
 
 @media (max-width: 375px) {
@@ -286,10 +316,6 @@ body {
     width: 25vw;
     padding: 0.25rem;
   }
-  
-  .loading-screen.animate-out {
-    transition-duration: 0.6s;
-  }
 }
 
 /* Very small screens (smartwatches, etc.) */
@@ -312,22 +338,6 @@ body {
 @media (min-width: 2560px) {
   .animated-logo-container { 
     max-width: 360px;
-  }
-}
-
-/* Performance optimizations for animations */
-.loading-screen,
-.main-content,
-.animated-logo-container {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-/* Container queries support (future-proofing) */
-@container (max-width: 768px) {
-  .feature-card {
-    padding: 1rem;
   }
 }
 
